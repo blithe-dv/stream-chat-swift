@@ -4,36 +4,36 @@
 
 import UIKit.UICollectionViewLayout
 
-public extension _UIConfig {
+internal extension _UIConfig {
     struct ChannelListUI {
-        public var channelCollectionView: ChatChannelListCollectionView.Type = ChatChannelListCollectionView.self
-        public var channelCollectionLayout: UICollectionViewLayout.Type = ChatChannelListCollectionViewLayout.self
-        public var channelListSwipeableItemView: _ChatChannelSwipeableListItemView<ExtraData>.Type =
+        internal var channelCollectionView: ChatChannelListCollectionView.Type = ChatChannelListCollectionView.self
+        internal var channelCollectionLayout: UICollectionViewLayout.Type = ChatChannelListCollectionViewLayout.self
+        internal var channelListSwipeableItemView: _ChatChannelSwipeableListItemView<ExtraData>.Type =
             _ChatChannelSwipeableListItemView<ExtraData>.self
-        public var channelListItemView: _ChatChannelListItemView<ExtraData>.Type = _ChatChannelListItemView<ExtraData>.self
-        public var channelViewCell: _ChatChannelListCollectionViewCell<ExtraData>.Type =
+        internal var channelListItemView: _ChatChannelListItemView<ExtraData>.Type = _ChatChannelListItemView<ExtraData>.self
+        internal var channelViewCell: _ChatChannelListCollectionViewCell<ExtraData>.Type =
             _ChatChannelListCollectionViewCell<ExtraData>.self
-        public var newChannelButton: ChatChannelCreateNewButton<ExtraData>.Type = ChatChannelCreateNewButton<ExtraData>.self
-        public var channelNamer: ChatChannelNamer.Type = ChatChannelNamer.self
-        public var channelListItemSubviews = ChannelListItemSubviews()
+        internal var newChannelButton: ChatChannelCreateNewButton<ExtraData>.Type = ChatChannelCreateNewButton<ExtraData>.self
+        internal var channelNamer: ChatChannelNamer.Type = ChatChannelNamer.self
+        internal var channelListItemSubviews = ChannelListItemSubviews()
     }
     
     struct ChannelListItemSubviews {
-        public var avatarView: _ChatChannelAvatarView<ExtraData>.Type = _ChatChannelAvatarView.self
-        public var unreadCountView: _ChatChannelUnreadCountView<ExtraData>.Type = _ChatChannelUnreadCountView<ExtraData>.self
-        public var readStatusView: _ChatChannelReadStatusCheckmarkView<ExtraData>.Type =
+        internal var avatarView: _ChatChannelAvatarView<ExtraData>.Type = _ChatChannelAvatarView.self
+        internal var unreadCountView: _ChatChannelUnreadCountView<ExtraData>.Type = _ChatChannelUnreadCountView<ExtraData>.self
+        internal var readStatusView: _ChatChannelReadStatusCheckmarkView<ExtraData>.Type =
             _ChatChannelReadStatusCheckmarkView<ExtraData>.self
         /// A type for the view used as an online activity indicator for avatars.
-        public var onlineIndicator: UIView.Type = _ChatOnlineIndicatorView<ExtraData>.self
+        internal var onlineIndicator: UIView.Type = _ChatOnlineIndicatorView<ExtraData>.self
     }
 }
 
 // MARK: - CurrentUser
 
-public extension _UIConfig {
+internal extension _UIConfig {
     struct CurrentUserUI {
-        public var currentUserViewAvatarView: _CurrentChatUserAvatarView<ExtraData>.Type = _CurrentChatUserAvatarView<ExtraData>
+        internal var currentUserViewAvatarView: _CurrentChatUserAvatarView<ExtraData>.Type = _CurrentChatUserAvatarView<ExtraData>
             .self
-        public var avatarView: ChatAvatarView.Type = ChatAvatarView.self
+        internal var avatarView: ChatAvatarView.Type = ChatAvatarView.self
     }
 }

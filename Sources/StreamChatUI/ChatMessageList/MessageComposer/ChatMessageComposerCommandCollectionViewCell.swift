@@ -5,27 +5,27 @@
 import StreamChat
 import UIKit
 
-public typealias ChatMessageComposerCommandCellView = _ChatMessageComposerCommandCellView<NoExtraData>
+internal typealias ChatMessageComposerCommandCellView = _ChatMessageComposerCommandCellView<NoExtraData>
 
-open class _ChatMessageComposerCommandCellView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
+internal class _ChatMessageComposerCommandCellView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
     // MARK: Properties
 
-    open var commandImageHeight: CGFloat = 24
+    internal var commandImageHeight: CGFloat = 24
 
-    open var command: Command? {
+    internal var command: Command? {
         didSet {
             updateContentIfNeeded()
         }
     }
 
-    open private(set) lazy var commandImageView: UIImageView = UIImageView().withoutAutoresizingMaskConstraints
-    open private(set) lazy var commandNameLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
-    open private(set) lazy var commandNameSubtitleLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var commandImageView: UIImageView = UIImageView().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var commandNameLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var commandNameSubtitleLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
     private lazy var textStackView: UIStackView = UIStackView().withoutAutoresizingMaskConstraints
 
     // MARK: - Appearance
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         backgroundColor = .clear
 
         commandNameLabel.font = uiConfig.font.bodyBold
@@ -36,7 +36,7 @@ open class _ChatMessageComposerCommandCellView<ExtraData: ExtraDataTypes>: View,
         commandNameLabel.textColor = uiConfig.colorPalette.text
     }
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         addSubview(commandImageView)
         setupLeftImageViewConstraints()
 
@@ -44,7 +44,7 @@ open class _ChatMessageComposerCommandCellView<ExtraData: ExtraDataTypes>: View,
         setupStack()
     }
 
-    override open func updateContent() {
+    override internal func updateContent() {
         guard let command = command else { return }
         commandNameSubtitleLabel.text = "/\(command.name) \(command.args)"
         commandNameLabel.text = command.name.firstUppercased
@@ -79,19 +79,19 @@ open class _ChatMessageComposerCommandCellView<ExtraData: ExtraDataTypes>: View,
     }
 }
 
-public typealias ChatMessageComposerCommandCollectionViewCell = _ChatMessageComposerCommandCollectionViewCell<NoExtraData>
+internal typealias ChatMessageComposerCommandCollectionViewCell = _ChatMessageComposerCommandCollectionViewCell<NoExtraData>
 
-open class _ChatMessageComposerCommandCollectionViewCell<ExtraData: ExtraDataTypes>: CollectionViewCell, UIConfigProvider {
+internal class _ChatMessageComposerCommandCollectionViewCell<ExtraData: ExtraDataTypes>: CollectionViewCell, UIConfigProvider {
     // MARK: Properties
 
-    open class var reuseId: String { String(describing: self) }
+    internal class var reuseId: String { String(describing: self) }
 
-    public private(set) lazy var commandView = uiConfig
+    internal private(set) lazy var commandView = uiConfig
         .messageComposer
         .suggestionsCommandCellView.init()
         .withoutAutoresizingMaskConstraints
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         super.setUpLayout()
 
         contentView.embed(commandView)

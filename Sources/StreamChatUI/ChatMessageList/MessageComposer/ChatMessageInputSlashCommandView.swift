@@ -5,12 +5,12 @@
 import StreamChat
 import UIKit
 
-public typealias ChatMessageInputSlashCommandView = _ChatMessageInputSlashCommandView<NoExtraData>
+internal typealias ChatMessageInputSlashCommandView = _ChatMessageInputSlashCommandView<NoExtraData>
 
-open class _ChatMessageInputSlashCommandView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
+internal class _ChatMessageInputSlashCommandView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
     // MARK: - Properties
     
-    public var commandName: String? {
+    internal var commandName: String? {
         didSet {
             updateContentIfNeeded()
         }
@@ -18,30 +18,30 @@ open class _ChatMessageInputSlashCommandView<ExtraData: ExtraDataTypes>: View, U
 
     // MARK: - Subviews
     
-    public private(set) lazy var container = ContainerStackView()
+    internal private(set) lazy var container = ContainerStackView()
         .withoutAutoresizingMaskConstraints
     
     private lazy var commandLabel = UILabel()
         .withoutAutoresizingMaskConstraints
     
-    public private(set) lazy var iconView = UIImageView()
+    internal private(set) lazy var iconView = UIImageView()
         .withoutAutoresizingMaskConstraints
     
     // MARK: - Overrides
     
-    override open var intrinsicContentSize: CGSize {
+    override internal var intrinsicContentSize: CGSize {
         container.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
     
-    override open func layoutSubviews() {
+    override internal func layoutSubviews() {
         super.layoutSubviews()
         
         layer.cornerRadius = bounds.height / 2
     }
     
-    // MARK: - Public
+    // MARK: - internal
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         layer.masksToBounds = true
         backgroundColor = uiConfig.colorPalette.highlightedAccentBackground
 
@@ -54,7 +54,7 @@ open class _ChatMessageInputSlashCommandView<ExtraData: ExtraDataTypes>: View, U
         iconView.image = uiConfig.images.messageComposerCommand.tinted(with: uiConfig.colorPalette.staticColorText)
     }
     
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         embed(container)
         
         container.preservesSuperviewLayoutMargins = true
@@ -71,7 +71,7 @@ open class _ChatMessageInputSlashCommandView<ExtraData: ExtraDataTypes>: View, U
         iconView.contentMode = .scaleAspectFit
     }
     
-    override open func updateContent() {
+    override internal func updateContent() {
         commandLabel.text = commandName
     }
 }

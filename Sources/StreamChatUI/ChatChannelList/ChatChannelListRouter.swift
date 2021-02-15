@@ -13,18 +13,23 @@ open class _ChatChannelListRouter<ExtraData: ExtraDataTypes>: ChatRouter<_ChatCh
     }
     
     open func openChat(for channel: _ChatChannel<ExtraData>) {
-        let vc = _ChatChannelVC<ExtraData>()
-        vc.channelController = rootViewController.controller.client.channelController(for: channel.cid)
-        
+        guard let controller = rootViewController?.controller.client.channelController(for: channel.cid) else {
+            log.error("Can't push chat detail, the root view controller is `nil`.")
+            return
+        }
+
         guard let navController = navigationController else {
             log.error("Can't push chat detail, no navigation controller available")
             return
         }
-        
+
+        let vc = _ChatChannelVC<ExtraData>()
+        vc.channelController = controller
+
         navController.show(vc, sender: self)
     }
     
     open func openCreateNewChannel() {
-        debugPrint("openCreateNewChannel")
+        debugPrint("internalCreateNewChannel")
     }
 }

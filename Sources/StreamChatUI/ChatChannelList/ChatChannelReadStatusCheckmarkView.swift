@@ -5,16 +5,16 @@
 import StreamChat
 import UIKit
 
-public typealias ChatChannelReadStatusCheckmarkView = _ChatChannelReadStatusCheckmarkView<NoExtraData>
+internal typealias ChatChannelReadStatusCheckmarkView = _ChatChannelReadStatusCheckmarkView<NoExtraData>
 
-open class _ChatChannelReadStatusCheckmarkView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
-    public enum Status {
+internal class _ChatChannelReadStatusCheckmarkView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
+    internal enum Status {
         case read, unread, empty
     }
     
     // MARK: - Properties
     
-    public var status: Status = .empty {
+    internal var status: Status = .empty {
         didSet {
             updateContentIfNeeded()
         }
@@ -24,23 +24,23 @@ open class _ChatChannelReadStatusCheckmarkView<ExtraData: ExtraDataTypes>: View,
     
     private lazy var imageView = UIImageView().withoutAutoresizingMaskConstraints
     
-    // MARK: - Public
+    // MARK: - internal
 
-    override open func tintColorDidChange() {
+    override internal func tintColorDidChange() {
         super.tintColorDidChange()
         updateContentIfNeeded()
     }
     
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         imageView.contentMode = .scaleAspectFit
     }
     
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         embed(imageView)
         widthAnchor.pin(equalTo: heightAnchor, multiplier: 1).isActive = true
     }
     
-    override open func updateContent() {
+    override internal func updateContent() {
         switch status {
         case .empty:
             imageView.image = nil

@@ -5,15 +5,15 @@
 import StreamChat
 import UIKit
 
-public typealias ChatChannelListItemView = _ChatChannelListItemView<NoExtraData>
+internal typealias ChatChannelListItemView = _ChatChannelListItemView<NoExtraData>
 
-open class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelSwipeableListItemView<ExtraData> {
+internal class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelSwipeableListItemView<ExtraData> {
     // MARK: - Properties
 
-    open var normalBackgroundColor: UIColor?
-    open var highlightedBackgroundColor: UIColor?
+    internal var normalBackgroundColor: UIColor?
+    internal var highlightedBackgroundColor: UIColor?
 
-    public var channelAndUserId: (channel: _ChatChannel<ExtraData>?, currentUserId: UserId?) {
+    internal var channelAndUserId: (channel: _ChatChannel<ExtraData>?, currentUserId: UserId?) {
         didSet {
             updateContent()
         }
@@ -23,30 +23,30 @@ open class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelSwip
     
     private lazy var uiConfigSubviews = uiConfig.channelList.channelListItemSubviews
     
-    public private(set) lazy var container = ContainerStackView().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var container = ContainerStackView().withoutAutoresizingMaskConstraints
     
-    public private(set) lazy var avatarView = uiConfigSubviews
+    internal private(set) lazy var avatarView = uiConfigSubviews
         .avatarView
         .init()
         .withoutAutoresizingMaskConstraints
     
-    public private(set) lazy var titleLabel = UILabel().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var titleLabel = UILabel().withoutAutoresizingMaskConstraints
     
-    public private(set) lazy var subtitleLabel = UILabel().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var subtitleLabel = UILabel().withoutAutoresizingMaskConstraints
     
-    public private(set) lazy var unreadCountView: _ChatChannelUnreadCountView<ExtraData> = {
+    internal private(set) lazy var unreadCountView: _ChatChannelUnreadCountView<ExtraData> = {
         uiConfigSubviews.unreadCountView.init().withoutAutoresizingMaskConstraints
     }()
     
-    public private(set) lazy var readStatusView: _ChatChannelReadStatusCheckmarkView<ExtraData> = {
+    internal private(set) lazy var readStatusView: _ChatChannelReadStatusCheckmarkView<ExtraData> = {
         uiConfigSubviews.readStatusView.init().withoutAutoresizingMaskConstraints
     }()
     
-    public private(set) lazy var timestampLabel = UILabel().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var timestampLabel = UILabel().withoutAutoresizingMaskConstraints
 
-    // MARK: - Public
+    // MARK: - internal
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         super.defaultAppearance()
 
         backgroundColor = uiConfig.colorPalette.background
@@ -65,7 +65,7 @@ open class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelSwip
         timestampLabel.font = uiConfig.font.subheadline
     }
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         super.setUpLayout()
 
         cellContentView.embed(container)
@@ -126,7 +126,7 @@ open class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelSwip
         container.centerStackView.addArrangedSubview(containerCenterView)
     }
     
-    override open func updateContent() {
+    override internal func updateContent() {
         // Title
         if let channel = channelAndUserId.channel {
             let namer = uiConfig.channelList.channelNamer.init()
@@ -158,7 +158,7 @@ open class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelSwip
         readStatusView.isHidden = true
     }
     
-    open func resetContent() {
+    internal func resetContent() {
         titleLabel.text = ""
         subtitleLabel.text = ""
         avatarView.content = (nil, nil)

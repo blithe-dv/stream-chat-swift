@@ -6,21 +6,22 @@ import Foundation
 import StreamChat
 import UIKit
 
-public typealias ChatChannelListCollectionViewCell = _ChatChannelListCollectionViewCell<NoExtraData>
+internal typealias ChatChannelListCollectionViewCell = _ChatChannelListCollectionViewCell<NoExtraData>
 
-open class _ChatChannelListCollectionViewCell<ExtraData: ExtraDataTypes>: CollectionViewCell, UIConfigProvider {
+internal class _ChatChannelListCollectionViewCell<ExtraData: ExtraDataTypes>: CollectionViewCell, UIConfigProvider {
     // MARK: - Properties
 
-    public private(set) lazy var channelView: _ChatChannelListItemView<ExtraData> = uiConfig.channelList.channelListItemView.init()
+    internal private(set) lazy var channelView: _ChatChannelListItemView<ExtraData> = uiConfig.channelList.channelListItemView
+        .init()
 
     // MARK: - UICollectionViewCell
 
-    override public func prepareForReuse() {
+    override internal func prepareForReuse() {
         super.prepareForReuse()
         channelView.trailingConstraint?.constant = 0
     }
 
-    override open var isHighlighted: Bool {
+    override internal var isHighlighted: Bool {
         didSet {
             channelView.backgroundColor = isHighlighted ? channelView.highlightedBackgroundColor : channelView.normalBackgroundColor
         }
@@ -28,14 +29,14 @@ open class _ChatChannelListCollectionViewCell<ExtraData: ExtraDataTypes>: Collec
 
     // MARK: Customizable
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         super.setUpLayout()
         contentView.embed(channelView)
     }
 
     // MARK: - Layout
     
-    override open func preferredLayoutAttributesFitting(
+    override internal func preferredLayoutAttributesFitting(
         _ layoutAttributes: UICollectionViewLayoutAttributes
     ) -> UICollectionViewLayoutAttributes {
         let preferredAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)

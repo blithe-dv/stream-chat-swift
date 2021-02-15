@@ -5,25 +5,25 @@
 import StreamChat
 import UIKit
 
-public typealias ChatMessageImageGallery = _ChatMessageImageGallery<NoExtraData>
+internal typealias ChatMessageImageGallery = _ChatMessageImageGallery<NoExtraData>
 
-open class _ChatMessageImageGallery<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
-    open var interItemSpacing: CGFloat = 2
+internal class _ChatMessageImageGallery<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
+    internal var interItemSpacing: CGFloat = 2
 
-    public var content: _ChatMessageAttachmentListViewData<ExtraData>? {
+    internal var content: _ChatMessageAttachmentListViewData<ExtraData>? {
         didSet { updateContentIfNeeded() }
     }
 
     // MARK: - Subviews
 
-    public private(set) lazy var previews = [
+    internal private(set) lazy var previews = [
         createImagePreview(),
         createImagePreview(),
         createImagePreview(),
         createImagePreview()
     ]
 
-    public private(set) lazy var moreImagesOverlay: UILabel = {
+    internal private(set) lazy var moreImagesOverlay: UILabel = {
         let label = UILabel()
         label.font = uiConfig.font.title
         label.adjustsFontForContentSizeCategory = true
@@ -35,7 +35,7 @@ open class _ChatMessageImageGallery<ExtraData: ExtraDataTypes>: View, UIConfigPr
 
     // MARK: - Overrides
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         previews.forEach(addSubview)
         addSubview(moreImagesOverlay)
 
@@ -107,12 +107,12 @@ open class _ChatMessageImageGallery<ExtraData: ExtraDataTypes>: View, UIConfigPr
         ])
     }
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         moreImagesOverlay.textColor = .white
         moreImagesOverlay.backgroundColor = uiConfig.colorPalette.background4
     }
 
-    override open func updateContent() {
+    override internal func updateContent() {
         let items = content?.items
         for (index, itemPreview) in previews.enumerated() {
             itemPreview.content = items?[safe: index]

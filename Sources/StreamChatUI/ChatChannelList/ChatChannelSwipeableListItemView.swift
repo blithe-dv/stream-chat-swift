@@ -5,28 +5,28 @@
 import StreamChat
 import UIKit
 
-public typealias ChatChannelSwipeableListItemView = _ChatChannelSwipeableListItemView<NoExtraData>
+internal typealias ChatChannelSwipeableListItemView = _ChatChannelSwipeableListItemView<NoExtraData>
 
-open class _ChatChannelSwipeableListItemView<ExtraData: ExtraDataTypes>: View, UIConfigProvider, UIGestureRecognizerDelegate {
+internal class _ChatChannelSwipeableListItemView<ExtraData: ExtraDataTypes>: View, UIConfigProvider, UIGestureRecognizerDelegate {
     // MARK: - Properties
 
     private var startedValue: CGFloat = 0
     private var maxActionWidth: CGFloat = 0
-    public var trailingConstraint: NSLayoutConstraint?
+    internal var trailingConstraint: NSLayoutConstraint?
     
-    open var separatorHeight: CGFloat = 0.4
+    internal var separatorHeight: CGFloat = 0.4
 
-    public var deleteButtonAction: (() -> Void)?
+    internal var deleteButtonAction: (() -> Void)?
 
     /// Main Content view to which you should always embed your cell content.
-    public private(set) lazy var cellContentView: UIView = UIView().withoutAutoresizingMaskConstraints
-    public private(set) lazy var deleteButton: UIButton = UIButton().withoutAutoresizingMaskConstraints
-    public private(set) lazy var actionButtonStack: UIStackView = UIStackView().withoutAutoresizingMaskConstraints
-    public private(set) lazy var bottomSeparatorView: UIView = UIView().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var cellContentView: UIView = UIView().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var deleteButton: UIButton = UIButton().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var actionButtonStack: UIStackView = UIStackView().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var bottomSeparatorView: UIView = UIView().withoutAutoresizingMaskConstraints
 
     // MARK: - View
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         super.setUpLayout()
         addSubview(cellContentView)
         cellContentView.pin(anchors: [.top, .bottom, .width], to: self)
@@ -52,7 +52,7 @@ open class _ChatChannelSwipeableListItemView<ExtraData: ExtraDataTypes>: View, U
         bottomSeparatorView.pin(anchors: [.bottom, .leading, .trailing], to: self)
     }
 
-    override open func setUp() {
+    override internal func setUp() {
         super.setUp()
 
         deleteButton.addTarget(self, action: #selector(didTapDelete), for: .touchUpInside)
@@ -62,7 +62,7 @@ open class _ChatChannelSwipeableListItemView<ExtraData: ExtraDataTypes>: View, U
         addGestureRecognizer(pan)
     }
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         super.defaultAppearance()
 
         bottomSeparatorView.backgroundColor = uiConfig.colorPalette.border
@@ -81,7 +81,7 @@ open class _ChatChannelSwipeableListItemView<ExtraData: ExtraDataTypes>: View, U
 
     // MARK: Gesture recognizer
 
-    override public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    override internal func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let recognizer = gestureRecognizer as? UIPanGestureRecognizer else {
             return super.gestureRecognizerShouldBegin(gestureRecognizer)
         }
@@ -96,7 +96,7 @@ open class _ChatChannelSwipeableListItemView<ExtraData: ExtraDataTypes>: View, U
         return abs(translation.x) > abs(translation.y)
     }
 
-    public func gestureRecognizer(
+    internal func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
         shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer
     ) -> Bool {
@@ -108,7 +108,7 @@ open class _ChatChannelSwipeableListItemView<ExtraData: ExtraDataTypes>: View, U
         true
     }
     
-    public func gestureRecognizer(
+    internal func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
     ) -> Bool {

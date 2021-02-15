@@ -5,34 +5,34 @@
 import StreamChat
 import UIKit
 
-public typealias ChatMessageMetadataView = _ChatMessageMetadataView<NoExtraData>
+internal typealias ChatMessageMetadataView = _ChatMessageMetadataView<NoExtraData>
 
-open class _ChatMessageMetadataView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
-    public var message: _ChatMessageGroupPart<ExtraData>? {
+internal class _ChatMessageMetadataView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
+    internal var message: _ChatMessageGroupPart<ExtraData>? {
         didSet { updateContentIfNeeded() }
     }
     
     // MARK: - Subviews
 
-    public private(set) lazy var stack: UIStackView = {
+    internal private(set) lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = UIStackView.spacingUseSystem
         return stack.withoutAutoresizingMaskConstraints
     }()
 
-    public private(set) lazy var currentUserVisabilityIndicator = uiConfig
+    internal private(set) lazy var currentUserVisabilityIndicator = uiConfig
         .messageList
         .messageContentSubviews
         .onlyVisibleForCurrentUserIndicator
         .init()
         .withoutAutoresizingMaskConstraints
 
-    public private(set) lazy var timestampLabel: UILabel = UILabel()
+    internal private(set) lazy var timestampLabel: UILabel = UILabel()
     
     // MARK: - Overrides
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         let color = uiConfig.colorPalette.subtitleText
         currentUserVisabilityIndicator.textLabel.textColor = color
         currentUserVisabilityIndicator.imageView.tintColor = color
@@ -42,35 +42,35 @@ open class _ChatMessageMetadataView<ExtraData: ExtraDataTypes>: View, UIConfigPr
         timestampLabel.textColor = color
     }
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         stack.addArrangedSubview(currentUserVisabilityIndicator)
         stack.addArrangedSubview(timestampLabel)
         embed(stack)
     }
 
-    override open func updateContent() {
+    override internal func updateContent() {
         timestampLabel.text = message?.createdAt.getFormattedDate(format: "hh:mm a")
         currentUserVisabilityIndicator.isVisible = message?.onlyVisibleForCurrentUser ?? false
     }
 }
 
-open class ChatMessageOnlyVisibleForCurrentUserIndicator<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
+internal class ChatMessageOnlyVisibleForCurrentUserIndicator<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
     // MARK: - Subviews
 
-    public private(set) lazy var stack: UIStackView = {
+    internal private(set) lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = UIStackView.spacingUseSystem
         return stack.withoutAutoresizingMaskConstraints
     }()
 
-    public private(set) lazy var imageView: UIImageView = {
+    internal private(set) lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView.withoutAutoresizingMaskConstraints
     }()
 
-    public private(set) lazy var textLabel: UILabel = {
+    internal private(set) lazy var textLabel: UILabel = {
         let label = UILabel()
         label.font = uiConfig.font.subheadline
         label.adjustsFontForContentSizeCategory = true
@@ -79,12 +79,12 @@ open class ChatMessageOnlyVisibleForCurrentUserIndicator<ExtraData: ExtraDataTyp
 
     // MARK: - Overrides
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         imageView.image = uiConfig.images.onlyVisibleToCurrentUser
         textLabel.text = L10n.Message.onlyVisibleToYou
     }
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         stack.addArrangedSubview(imageView)
         stack.addArrangedSubview(textLabel)
         embed(stack)

@@ -8,10 +8,10 @@ import UIKit
 public typealias UIConfig = _UIConfig<NoExtraData>
 
 public struct _UIConfig<ExtraData: ExtraDataTypes> {
-    public var channelList = ChannelListUI()
-    public var messageList = MessageListUI()
-    public var messageComposer = MessageComposer()
-    public var currentUser = CurrentUserUI()
+    internal var channelList = ChannelListUI()
+    internal var messageList = MessageListUI()
+    internal var messageComposer = MessageComposer()
+    internal var currentUser = CurrentUserUI()
     public var navigation = Navigation()
     public var colorPalette = ColorPalette()
     public var font = Font()
@@ -27,6 +27,7 @@ private var defaults: [String: Any] = [:]
 public extension _UIConfig {
     static var `default`: Self {
         get {
+            log.assert(Thread.isMainThread, "`UIConfig.default` can be accessed only from the main thread.")
             let key = String(describing: ExtraData.self)
             if let existing = defaults[key] as? Self {
                 return existing
@@ -37,6 +38,7 @@ public extension _UIConfig {
             }
         }
         set {
+            log.assert(Thread.isMainThread, "`UIConfig.default` can be accessed only from the main thread.")
             let key = String(describing: ExtraData.self)
             defaults[key] = newValue
         }

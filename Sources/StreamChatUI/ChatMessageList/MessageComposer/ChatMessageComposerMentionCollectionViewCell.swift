@@ -5,31 +5,31 @@
 import StreamChat
 import UIKit
 
-public typealias ChatMessageComposerMentionCellView = _ChatMessageComposerMentionCellView<NoExtraData>
+internal typealias ChatMessageComposerMentionCellView = _ChatMessageComposerMentionCellView<NoExtraData>
 
-open class _ChatMessageComposerMentionCellView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
+internal class _ChatMessageComposerMentionCellView<ExtraData: ExtraDataTypes>: View, UIConfigProvider {
     // MARK: Properties
 
-    open var content: (title: String, subtitle: String, imageURL: URL?, isUserOnline: Bool)? {
+    internal var content: (title: String, subtitle: String, imageURL: URL?, isUserOnline: Bool)? {
         didSet {
             updateContentIfNeeded()
         }
     }
 
-    open private(set) lazy var avatarView = uiConfig
+    internal private(set) lazy var avatarView = uiConfig
         .messageComposer
         .mentionAvatarView
         .init()
         .withoutAutoresizingMaskConstraints
 
-    open private(set) lazy var usernameLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
-    open private(set) lazy var usernameTagLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
-    open private(set) lazy var suggestionTypeImageView: UIImageView = UIImageView().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var usernameLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var usernameTagLabel: UILabel = UILabel().withoutAutoresizingMaskConstraints
+    internal private(set) lazy var suggestionTypeImageView: UIImageView = UIImageView().withoutAutoresizingMaskConstraints
     private lazy var textStackView: UIStackView = UIStackView().withoutAutoresizingMaskConstraints
 
     // MARK: - Appearance
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         backgroundColor = .clear
         usernameLabel.font = uiConfig.font.headlineBold
 
@@ -39,7 +39,7 @@ open class _ChatMessageComposerMentionCellView<ExtraData: ExtraDataTypes>: View,
         usernameLabel.textColor = uiConfig.colorPalette.text
     }
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         addSubview(avatarView)
         addSubview(textStackView)
         addSubview(suggestionTypeImageView)
@@ -49,7 +49,7 @@ open class _ChatMessageComposerMentionCellView<ExtraData: ExtraDataTypes>: View,
         setupSuggestionTypeImageViewConstraints()
     }
 
-    override open func updateContent() {
+    override internal func updateContent() {
         usernameTagLabel.text = content?.subtitle
         usernameLabel.text = content?.title
 
@@ -96,19 +96,19 @@ open class _ChatMessageComposerMentionCellView<ExtraData: ExtraDataTypes>: View,
     }
 }
 
-public typealias ChatMessageComposerMentionCollectionViewCell = _ChatMessageComposerMentionCollectionViewCell<NoExtraData>
+internal typealias ChatMessageComposerMentionCollectionViewCell = _ChatMessageComposerMentionCollectionViewCell<NoExtraData>
 
-open class _ChatMessageComposerMentionCollectionViewCell<ExtraData: ExtraDataTypes>: CollectionViewCell, UIConfigProvider {
+internal class _ChatMessageComposerMentionCollectionViewCell<ExtraData: ExtraDataTypes>: CollectionViewCell, UIConfigProvider {
     // MARK: Properties
 
-    open class var reuseId: String { String(describing: self) }
+    internal class var reuseId: String { String(describing: self) }
 
-    public private(set) lazy var mentionView = uiConfig
+    internal private(set) lazy var mentionView = uiConfig
         .messageComposer
         .suggestionsMentionCellView.init()
         .withoutAutoresizingMaskConstraints
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         super.setUpLayout()
         
         contentView.embed(
@@ -117,7 +117,7 @@ open class _ChatMessageComposerMentionCollectionViewCell<ExtraData: ExtraDataTyp
         )
     }
 
-    override open func preferredLayoutAttributesFitting(
+    override internal func preferredLayoutAttributesFitting(
         _ layoutAttributes: UICollectionViewLayoutAttributes
     ) -> UICollectionViewLayoutAttributes {
         let preferredAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)

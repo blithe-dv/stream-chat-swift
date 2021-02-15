@@ -6,28 +6,28 @@ import StreamChat
 import UIKit
 
 /// A view that shows a user avatar including an indicator of the user presence (online/offline).
-public typealias ChatChannelAvatarView = _ChatChannelAvatarView<NoExtraData>
+internal typealias ChatChannelAvatarView = _ChatChannelAvatarView<NoExtraData>
 
 /// A view that shows a user avatar including an indicator of the user presence (online/offline).
-open class _ChatChannelAvatarView<ExtraData: ExtraDataTypes>: ChatAvatarView, UIConfigProvider {
+internal class _ChatChannelAvatarView<ExtraData: ExtraDataTypes>: ChatAvatarView, UIConfigProvider {
     /// A view indicating whether the user this view represents is online.
-    open private(set) lazy var onlineIndicatorView: UIView = uiConfig
+    internal private(set) lazy var onlineIndicatorView: UIView = uiConfig
         .channelList
         .channelListItemSubviews
         .onlineIndicator.init()
         .withoutAutoresizingMaskConstraints
 
     /// The data this view component shows.
-    open var content: (channel: _ChatChannel<ExtraData>?, currentUserId: UserId?) {
+    internal var content: (channel: _ChatChannel<ExtraData>?, currentUserId: UserId?) {
         didSet { updateContentIfNeeded() }
     }
 
-    override public func defaultAppearance() {
+    override internal func defaultAppearance() {
         super.defaultAppearance()
         onlineIndicatorView.isHidden = true
     }
 
-    override open func setUpLayout() {
+    override internal func setUpLayout() {
         super.setUpLayout()
         // Add online indicator view
         addSubview(onlineIndicatorView)
@@ -37,7 +37,7 @@ open class _ChatChannelAvatarView<ExtraData: ExtraDataTypes>: ChatAvatarView, UI
             .isActive = true
     }
     
-    override open func updateContent() {
+    override internal func updateContent() {
         guard let channel = content.channel else {
             imageView.loadImage(from: nil)
             return

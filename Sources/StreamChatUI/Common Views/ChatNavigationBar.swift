@@ -5,8 +5,8 @@
 import StreamChat
 import UIKit
 
-open class ChatNavigationBar<ExtraData: ExtraDataTypes>: NavigationBar, UIConfigProvider {
-    override public func defaultAppearance() {
+internal class ChatNavigationBar<ExtraData: ExtraDataTypes>: NavigationBar, UIConfigProvider {
+    override internal func defaultAppearance() {
         let backIcon = uiConfig.images.back
         backIndicatorTransitionMaskImage = backIcon
         backIndicatorImage = backIcon

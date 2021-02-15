@@ -6,12 +6,12 @@ import StreamChat
 import UIKit
 
 /// Used to define the default appearance for views.
-public protocol AppearanceSetting: AnyObject {
+internal protocol AppearanceSetting: AnyObject {
     /// Objects must implement this method and apply the default configuration on the provided object.
     func defaultAppearance()
 }
 
-public extension AppearanceSetting {
+internal extension AppearanceSetting {
     /// Applies the default appearance specified by the type, including the custom rules set using the `defaultAppearance` API.
     func applyDefaultAppearance() {
         defaultAppearance()
@@ -20,7 +20,7 @@ public extension AppearanceSetting {
     }
 }
 
-public extension AppearanceSetting {
+internal extension AppearanceSetting {
     static var defaultAppearance: Appearance<Self> {
         let key = String(describing: self)
         return fetchDefaultAppearance(key)
@@ -55,14 +55,14 @@ private class _AppearanceStorage {
     private var appearances: [String: Any] = [:]
 }
 
-public class Appearance<Root: AnyObject> {
-    public var rules: [(Root) -> Void] = []
+internal class Appearance<Root: AnyObject> {
+    internal var rules: [(Root) -> Void] = []
 
-    public func addRule(_ rule: @escaping (Root) -> Void) {
+    internal func addRule(_ rule: @escaping (Root) -> Void) {
         rules.append(rule)
     }
     
-    public func callAsFunction(_ rule: @escaping (Root) -> Void) {
+    internal func callAsFunction(_ rule: @escaping (Root) -> Void) {
         addRule(rule)
     }
 }

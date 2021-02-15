@@ -10,7 +10,8 @@ public typealias ChatChannelListVC = _ChatChannelListVC<NoExtraData>
 open class _ChatChannelListVC<ExtraData: ExtraDataTypes>: ViewController,
     UICollectionViewDataSource,
     UICollectionViewDelegate,
-    UIConfigProvider {
+    UIConfigProvider
+{
     override public func defaultAppearance() {
         title = "Stream Chat"
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userAvatarView)
@@ -18,14 +19,14 @@ open class _ChatChannelListVC<ExtraData: ExtraDataTypes>: ViewController,
 
         collectionView.backgroundColor = uiConfig.colorPalette.background
     }
-    
+
     // MARK: - Properties
     
-    public var controller: _ChatChannelListController<ExtraData>!
+    open var controller: _ChatChannelListController<ExtraData>!
     
-    public lazy var router = uiConfig.navigation.channelListRouter.init(rootViewController: self)
+    internal lazy var router: _ChatChannelListRouter = uiConfig.navigation.channelListRouter.init(rootViewController: self)
     
-    public private(set) lazy var collectionView: ChatChannelListCollectionView = {
+    internal private(set) lazy var collectionView: ChatChannelListCollectionView = {
         let layout = uiConfig.channelList.channelCollectionLayout.init()
         let collection = uiConfig.channelList.channelCollectionView.init(layout: layout)
         collection.register(uiConfig.channelList.channelViewCell.self, forCellWithReuseIdentifier: "Cell")
@@ -34,14 +35,14 @@ open class _ChatChannelListVC<ExtraData: ExtraDataTypes>: ViewController,
         return collection
     }()
     
-    public private(set) lazy var createNewChannelButton: ChatChannelCreateNewButton<ExtraData> = {
+    internal private(set) lazy var createNewChannelButton: ChatChannelCreateNewButton<ExtraData> = {
         let button = uiConfig.channelList.newChannelButton.init()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapCreateNewChannel), for: .touchUpInside)
         return button
     }()
     
-    public private(set) lazy var userAvatarView: _CurrentChatUserAvatarView<ExtraData> = {
+    internal private(set) lazy var userAvatarView: _CurrentChatUserAvatarView<ExtraData> = {
         let avatar = uiConfig.currentUser.currentUserViewAvatarView.init()
         avatar.controller = controller.client.currentUserController()
         avatar.translatesAutoresizingMaskIntoConstraints = false
@@ -100,13 +101,13 @@ open class _ChatChannelListVC<ExtraData: ExtraDataTypes>: ViewController,
     
     // MARK: Actions
     
-    @objc open func didTapOnCurrentUserAvatar(_ sender: Any) {
+    @objc internal func didTapOnCurrentUserAvatar(_ sender: Any) {
         guard let currentUser = userAvatarView.controller?.currentUser else { return }
         
         router.openCurrentUserProfile(for: currentUser)
     }
     
-    @objc open func didTapCreateNewChannel(_ sender: Any) {
+    @objc internal func didTapCreateNewChannel(_ sender: Any) {
         router.openCreateNewChannel()
     }
 }
@@ -114,6 +115,8 @@ open class _ChatChannelListVC<ExtraData: ExtraDataTypes>: ViewController,
 // MARK: - _ChatChannelListControllerDelegate
 
 extension _ChatChannelListVC: _ChatChannelListControllerDelegate {
+    public typealias ExtraData = ExtraData
+
     public func controller(
         _ controller: _ChatChannelListController<ExtraData>,
         didChangeChannels changes: [ListChange<_ChatChannel<ExtraData>>]
